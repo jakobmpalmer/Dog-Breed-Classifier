@@ -24,7 +24,7 @@ function ImageUpload() {
       const formData = new FormData();
       formData.append('image', selectedImage);
 
-      const response = await fetch('http://18.144.165.10:5000/predict', {
+      const response = await fetch('https://18.144.165.10/predict', {
         method: 'POST',
         body: formData
       });
