@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function ImageUpload() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -10,6 +10,14 @@ function ImageUpload() {
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
   };
+
+  useEffect(() => {
+    // Reset prediction and accuracy only if they were previously set
+    if (prediction !== null || predictionAccuracy !== null) {
+      setPrediction(null);
+      setPredictionAccuracy(null);
+    }
+  }, [selectedImage]); 
 
   const handleButtonClick = async () => {
     try {

@@ -19,9 +19,15 @@ function Compendium() {
 
 
 
- 
+
   return (
-    <div>Compendium</div>
+    <div>
+        <div>
+            Compendium
+        </div>
+        
+
+    </div>
   )
 }
 
