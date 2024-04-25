@@ -28,7 +28,7 @@ function ImageUpload() {
       formData.append('image', selectedImage);
 
       // const response = await fetch('https://18.144.165.10/predict', {
-      const response = await fetch ('https://ec2-18-144-165-10.us-west-1.compute.amazonaws.com/predict', {
+      const response = await fetch ('https://ec2-54-215-128-159.us-west-1.compute.amazonaws.com/predict', {
         method: 'POST',
         body: formData
       });
