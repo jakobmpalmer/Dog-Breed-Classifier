@@ -50,7 +50,7 @@ function ImageUpload() {
             <button onClick={handleButtonClick}>Send Image</button>
             
             {/* {predictionAccuracy ? <h3>I am {predictionAccuracy}% sure</h3> : <h3></h3>} */}
-            {prediction ? <h3>That this is a, <i>{prediction}</i></h3> : <h3></h3>}
+            {prediction!='Lol, didnt work.' ? <h3>That this is a, <i>{prediction}</i></h3> : <h3></h3>}
           </div>
           
         </div>
