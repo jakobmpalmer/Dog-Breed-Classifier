@@ -36,6 +36,7 @@ function ImageUpload() {
       setPredictionAccuracy(Math.round(data.accuracy * 10000) / 100); // Update state with prediction
     } catch (error) {
       console.error("Error sending request:", error);
+      setPrediction('Lol, didnt work.')
     }
   };
 
