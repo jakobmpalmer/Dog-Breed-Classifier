@@ -24,7 +24,8 @@ function ImageUpload() {
       const formData = new FormData();
       formData.append('image', selectedImage);
 
-      const response = await fetch('https://18.144.165.10/predict', {
+      // const response = await fetch('https://18.144.165.10/predict', {
+      const response = await fetch ('http://ec2-18-144-165-10.us-west-1.compute.amazonaws.com/predict', {
         method: 'POST',
         body: formData
       });
@@ -47,7 +48,7 @@ function ImageUpload() {
           <div>
             <button onClick={handleButtonClick}>Send Image</button>
             
-            {predictionAccuracy ? <h3>I am {predictionAccuracy}% sure</h3> : <h3></h3>}
+            {/* {predictionAccuracy ? <h3>I am {predictionAccuracy}% sure</h3> : <h3></h3>} */}
             {prediction ? <h3>That this is a, <i>{prediction}</i></h3> : <h3></h3>}
           </div>
           
