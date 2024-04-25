@@ -6,9 +6,12 @@ function ImageUpload() {
   const [predictionAccuracy, setPredictionAccuracy] = useState(null);
   const [prediction, setPrediction] = useState(null); // State for prediction
 
+  const [errorMessage, setErrorMessage] = useState(null);
+
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
+    console.log(prediction)
   };
 
   useEffect(() => {
@@ -36,7 +39,7 @@ function ImageUpload() {
       setPredictionAccuracy(Math.round(data.accuracy * 10000) / 100); // Update state with prediction
     } catch (error) {
       console.error("Error sending request:", error);
-      setPrediction('Lol, didnt work.')
+      setErrorMessage('That didnt work\n', error)
     }
   };
 
@@ -50,7 +53,8 @@ function ImageUpload() {
             <button onClick={handleButtonClick}>Send Image</button>
             
             {/* {predictionAccuracy ? <h3>I am {predictionAccuracy}% sure</h3> : <h3></h3>} */}
-            {prediction!='Lol, didnt work.' ? <h3>That this is a, <i>{prediction}</i></h3> : <h3></h3>}
+            {prediction  ? <h3>That this is a, <i>{prediction}</i></h3> : <h3></h3>}
+            <h3>{errorMessage}</h3>
           </div>
           
         </div>
