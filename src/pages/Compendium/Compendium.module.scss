@@ -1,0 +1,40 @@
+.backgroundColor {
+  background-color: #FFEBC6;
+}
+.pageContent {
+    max-width: 80%;
+    margin: 0px auto;
+}
+
+.pageTitle {
+  h1 {
+    margin: 0px;
+  }
+}
+
+
+.dogGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust 200px to your desired minimum tile width */
+    gap: 10px; /* Adjust spacing as needed */
+  }
+  
+
+//   .dog-grid {
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: space-around; /* Distribute items with space around them */
+//     gap: 10px; 
+//   }
+  
+  .dogTile { 
+    // flex: 0 0 18%; /* Example: Allow tiles to shrink slightly below 20% width */
+    border: 1px solid black;
+
+    min-height: 30vh;    
+    
+  }
+  .dogTile:hover {
+    min-height: 32vh;
+  }
+  

@@ -1,0 +1,74 @@
+// html {
+//     scroll-behavior: smooth;
+//   }
+  
+
+.mainContainer {
+    width: 100%;
+    height: 7vh;
+    background-color: #003844;
+    display: flex;
+    align-items: center; // Align items vertically in the middle
+
+    // position: fixed; // Fix the navbar at the top of the viewport
+    // top: 0; // Position at the top of the viewport
+    // z-index: 1000; // Set a high z-index to ensure it's on top of other content
+
+    // font-size: 1.6rem;
+}
+
+.navTitle {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    // padding-left: 3%;
+    height: 100%;
+    
+}
+.navTitleHighlight{
+    display: inline;
+    height: 100%;
+    display: flex;
+    align-items: center; // Align items vertically in the middle
+    a {
+        text-decoration: none;
+        color: white;
+    
+    }    
+    padding: 0px 3.0rem;
+    // a {
+    //     width: 100%;
+    //     height: 100%;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
+}
+.navTitleHighlight:hover {
+    background-color: #FFB100; /* Change background color on hover */
+    transition: background-color .6s; /* Add transition for smooth background color change on hover */
+}
+
+
+.navItem {
+    // color: white;
+    height: 100%;
+    width: 100%;    
+    
+    color: #FFB100;
+    a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: white;
+    }
+
+    // transition: color 0.3s; /* Add transition for smooth color change */
+}
+.navItem:hover {
+    background-color: #005a6e; /* Change background color on hover */
+    transition: background-color .4s; /* Add transition for smooth background color change on hover */
+}
