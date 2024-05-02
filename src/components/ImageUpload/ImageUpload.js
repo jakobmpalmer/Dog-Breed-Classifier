@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-function ImageUpload() {
+import CircularProgress, {
+  circularProgressClasses,
+} from '@mui/material/CircularProgress';
+
+
+function ImageUpload({ updateDogSeen }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [predictionAccuracy, setPredictionAccuracy] = useState(null);
@@ -8,6 +13,14 @@ function ImageUpload() {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const [predictionLoading, setPredictionLoading] = useState(null);
+  
+  // Update 'seen' status when a dog is viewed
+  // function updateDogSeen(breedName) {
+  //   let dogData = JSON.parse(localStorage.getItem('dogData'));
+  //   dogData[breedName].seen = true; 
+  //   localStorage.setItem('dogData', JSON.stringify(dogData)); 
+  // }
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -37,7 +50,9 @@ function ImageUpload() {
       const data = await response.json();
       console.log("Prediction:", data);
       setPrediction(data.breed); // Update state with prediction
+      updateDogSeen(data.breed) // <---- UPDATE LOCAL STORAGE
       setPredictionAccuracy(Math.round(data.accuracy * 10000) / 100); // Update state with prediction
+      setErrorMessage('')
     } catch (error) {
       console.error("Error sending request:", error);
       setErrorMessage('That didnt work\n', error)
@@ -52,7 +67,22 @@ function ImageUpload() {
           <img alt="Preview" src={URL.createObjectURL(selectedImage)} />
           <div>
             <button onClick={handleButtonClick}>Send Image</button>
-            
+            {predictionLoading ? 
+              function GradientCircularProgress() {
+                return (
+                  <React.Fragment>
+                    <svg width={0} height={0}>
+                      <defs>
+                        <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="#e01cd5" />
+                          <stop offset="100%" stopColor="#1CB5E0" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <CircularProgress sx={{ 'svg circle': { stroke: 'url(#my_gradient)' } }} />
+                  </React.Fragment>
+                );
+              } : <h3></h3>}
             {/* {predictionAccuracy ? <h3>I am {predictionAccuracy}% sure</h3> : <h3></h3>} */}
             {prediction  ? <h3>I think this is a, <i>{prediction}</i></h3> : <h3></h3>}
             <h3>{errorMessage}</h3>

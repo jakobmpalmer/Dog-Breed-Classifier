@@ -1,0 +1,35 @@
+.pageBackground {
+    background-color: #FFEBC6;
+}
+
+.pageContent {
+    width: 80%;
+    margin: 0px auto;
+}
+
+.pageTitle {
+    h1 {
+        margin: 0px;    
+    }
+    // padding-top: 25px;
+}
+
+
+.dogImage {
+    // max-height: 20vh;
+    background-color: #eed097;
+
+    height: 36vh;
+    // background: #eed097;
+    
+    img {
+    //   max-width: 100%;
+    //   max-height: 100%;
+      height: 100%;
+    //   width: 100%;
+    //   height: 100%;
+    //   object-fit: cover;  
+    //   overflow: hidden;
+      // background-position: center;
+    }
+}
