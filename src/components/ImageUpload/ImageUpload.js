@@ -5,7 +5,7 @@ import CircularProgress, {
 } from '@mui/material/CircularProgress';
 
 
-function ImageUpload() {
+function ImageUpload({ updateDogSeen }) {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [predictionAccuracy, setPredictionAccuracy] = useState(null);
@@ -16,11 +16,11 @@ function ImageUpload() {
   const [predictionLoading, setPredictionLoading] = useState(null);
   
   // Update 'seen' status when a dog is viewed
-  function updateDogSeen(breedName) {
-    let dogData = JSON.parse(localStorage.getItem('dogData'));
-    dogData[breedName].seen = true; 
-    localStorage.setItem('dogData', JSON.stringify(dogData)); 
-  }
+  // function updateDogSeen(breedName) {
+  //   let dogData = JSON.parse(localStorage.getItem('dogData'));
+  //   dogData[breedName].seen = true; 
+  //   localStorage.setItem('dogData', JSON.stringify(dogData)); 
+  // }
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);

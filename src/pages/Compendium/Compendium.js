@@ -29,6 +29,7 @@ function Compendium({ getDogData, dogData, setDogData }) {
   'Vizsla', 'Yorkie']
 
   let numSeen = 0;
+  let seenDogs = []
 
   // if(dogData == null) {
   //   console.log('COMPENDIUM 34: NULL')
@@ -38,22 +39,22 @@ function Compendium({ getDogData, dogData, setDogData }) {
   //   }, {});    
   // }
 
-  useEffect (() => {
-      console.log('use effect..')
-      // const dogData = JSON.parse(localStorage.getItem('dogData')); 
-      getDogData()
-      console.log('compendium useEffect | DogData:', getDogData)
-  }, [])
-
-//   useEffect(() => {
-//     const updateFromLocalStorage = async () => { 
-//         const storedData = await getDogData();
-//         setDogData(storedData); 
-//     };
-//     updateFromLocalStorage();
-// }, []); // Include 'location' (from React Router) in the dependency array
-
-  console.log("Compendium: DogData:", dogData)
+  // useEffect (() => {
+  //     console.log('use effect..')
+  //     const retrieveDogData = async () => { 
+  //       let storedData = await getDogData(); // Retrieve data
+    
+  //       console.log('dog data use effect:', storedData);
+    
+  //       // Update state or perform calculations only after getting the data
+  //       const seenDogs = Object.values(storedData).filter(dog => dog.seen);
+  //       const numSeen = seenDogs.length; 
+  //       console.log('numseen 45:', numSeen);
+  //       console.log('compendium useEffect | DogData:', storedData);
+  //     };
+    
+  //     retrieveDogData(); 
+  // }, [])
 
   
   return (
@@ -68,15 +69,15 @@ function Compendium({ getDogData, dogData, setDogData }) {
                 let nameLower = name.toLowerCase()
                 console.log('nameLower:', nameLower)
                 let seen = false
-                try {
-                  console.log('trying:', dogData)
-                  console.log('trying2:', dogData[name])
-                  // Code that might potentially throw an error due to undefined values
-                  seen = dogData[name].seen != undefined ? dogData[name].seen : false                
-                } catch (error) {
-                  // Handling code if an error occurs
-                  console.error("An error occurred:", error); 
-                }
+                // try {
+                //   console.log('trying:', dogData)
+                //   console.log('trying2:', dogData[name])
+                //   seen = dogData[name].seen != undefined ? dogData[name].seen : false                
+                // } catch (error) {
+                //   // Handling code if an error occurs
+                //   console.error("An error occurred:", error); 
+                // }
+                seen = dogData[name]?.seen ?? false;
                 console.log('seen:', seen)
                 return(
                   <DogBreedTile key={name} title={name} seen={seen}/>

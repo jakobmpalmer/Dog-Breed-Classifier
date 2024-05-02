@@ -7,7 +7,7 @@ function Home({ updateDogSeen, setDogData, getDogData }) {
   return (
     <div className={styles.pageContent}>
         <h1>Upload an Image of a Dog</h1>
-        <ImageUpload />
+        <ImageUpload updateDogSeen={updateDogSeen}/>
         
     </div>
   )

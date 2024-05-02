@@ -37,27 +37,18 @@ function App() {
           storedData = createDogDataObject();
           localStorage.setItem('dogData', JSON.stringify(storedData));
         }
-        setDogData(storedData);
+        setDogData(storedData); // <-- Maybe Unecessary
     };
     updateFromLocalStorage();
 }, [location]); // Include 'location' (from React Router) in the dependency array
 
-// useEffect(() => {
-//   // Initialization (do this when setting up)
-//   if (localStorage.getItem('dogData') === null) {
-//   // Initialize dogData if it doesn't exist
-//     localStorage.setItem('dogData', JSON.stringify(dogData));
-//   }
-// }, [dogData]); // Include 'location' (from React Router) in the dependency array
-
- 
-
-  // // Update 'seen' status when a dog is viewed
-  // function updateDogSeen(breedName) {
-  //   let dogData = JSON.parse(localStorage.getItem('dogData'));
-  //   dogData[breedName].seen = true; 
-  //   localStorage.setItem('dogData', JSON.stringify(dogData)); 
-  // }
+  function updateDogSeen(breedName) {
+    let dogData = JSON.parse(localStorage.getItem('dogData'));
+    dogData[breedName].seen = true; 
+    localStorage.setItem('dogData', JSON.stringify(dogData)); 
+    setDogData(dogData)
+    console.log('updateDogSeen:', dogData)
+  }
 
   const createDogDataObject = () => {
     return dogBreeds.reduce((accumulator, breedName) => {
@@ -69,12 +60,10 @@ function App() {
   function getDogData() {
     setDogData(JSON.parse(localStorage.getItem('dogData')));
     console.log('getDogData:', dogData) 
-    if(dogData == null) {
-      console.log('99: DogData NULL!!', dogBreeds)
-        setDogData(createDogDataObject())        
-    }      
-      
-    
+    // if(dogData == null) {
+    //   console.log('99: DogData NULL!!', dogBreeds)
+    //     setDogData(createDogDataObject())        
+    // }                    
     return dogData; 
   }
 
@@ -84,7 +73,7 @@ function App() {
       {/* <Router> */}
         <Navbar />
         <Routes>
-          <Route path='/' element={<Home getDogData={getDogData} dogData={dogData} setDogData={setDogData} />} />
+          <Route path='/' element={<Home getDogData={getDogData} dogData={dogData} setDogData={setDogData} updateDogSeen={updateDogSeen} />} />
           <Route path='/about' element={<About />} />
           <Route path='/compendium' element={<Compendium getDogData={getDogData} setDogData={setDogData} dogData={dogData} />} />
           <Route path='/compendium/:breed' element={<BreedPage />} />
