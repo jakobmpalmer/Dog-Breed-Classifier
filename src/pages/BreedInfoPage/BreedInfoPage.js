@@ -45,11 +45,20 @@ const BreedInfoPage = () => {
   console.log(breed)
   
 
+  // function updateDogSeen(breedName) {
+  //   const dogData = JSON.parse(localStorage.getItem('dogData')); // Fetch from localStorage
+  //   dogData[breedName].seen = !dogData[breedName].seen; // Toggle the 'seen' property
+  //   localStorage.setItem('dogData', JSON.stringify(dogData)); // Save back to localStorage
+  // }
+
   return (
     <div className={styles.pageBackground}>
       <div className={styles.pageContent}>
         <div className={styles.pageTitle}>
           <h1>{breedName}s</h1>  
+        </div>
+        <div className={styles.dogImage}>
+          <img src={`/compendium/${breedName}/image.jpg`} alt="Missing image"></img>
         </div>
         
         <div dangerouslySetInnerHTML={{ __html: content }} />    

@@ -15,7 +15,12 @@ function ImageUpload() {
 
   const [predictionLoading, setPredictionLoading] = useState(null);
   
-
+  // Update 'seen' status when a dog is viewed
+  function updateDogSeen(breedName) {
+    let dogData = JSON.parse(localStorage.getItem('dogData'));
+    dogData[breedName].seen = true; 
+    localStorage.setItem('dogData', JSON.stringify(dogData)); 
+  }
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -45,6 +50,7 @@ function ImageUpload() {
       const data = await response.json();
       console.log("Prediction:", data);
       setPrediction(data.breed); // Update state with prediction
+      updateDogSeen(data.breed) // <---- UPDATE LOCAL STORAGE
       setPredictionAccuracy(Math.round(data.accuracy * 10000) / 100); // Update state with prediction
       setErrorMessage('')
     } catch (error) {
