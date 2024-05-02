@@ -37,7 +37,7 @@ function App() {
           storedData = createDogDataObject();
           localStorage.setItem('dogData', JSON.stringify(storedData));
         }
-        setDogData(storedData); // <-- Maybe Unecessary
+        setDogData(storedData);
     };
     updateFromLocalStorage();
 }, [location]); // Include 'location' (from React Router) in the dependency array
@@ -58,12 +58,24 @@ function App() {
   }
 
   function getDogData() {
-    setDogData(JSON.parse(localStorage.getItem('dogData')));
-    console.log('getDogData:', dogData) 
+    console.log("Inside getDogData, localStorage content:", localStorage.getItem('dogData')); // Inspect the data
+    
+    // setDogData(JSON.parse(localStorage.getItem('dogData')));
+    // console.log('getDogData:', dogData) 
     // if(dogData == null) {
     //   console.log('99: DogData NULL!!', dogBreeds)
     //     setDogData(createDogDataObject())        
-    // }                    
+    // }      
+
+    const storedData = localStorage.getItem('dogData'); // Fetch from localStorage
+    if (storedData === null) {
+      setDogData(JSON.parse(localStorage.getItem('dogData')));
+    console.log('getDogData:', dogData) 
+      } else {
+        const dogData = JSON.parse(storedData);
+        setDogData(dogData); 
+        return dogData;
+    }              
     return dogData; 
   }
 
