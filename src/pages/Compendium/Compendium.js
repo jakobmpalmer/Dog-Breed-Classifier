@@ -56,7 +56,9 @@ function Compendium({ getDogData, dogData, setDogData }) {
   //     retrieveDogData(); 
   // }, [])
 
-  
+  if(dogData === null){
+    return <div>Loading Dog Data...</div>
+  } else {
   return (
     <div className={styles.backgroundColor}>
       <div className={styles.pageContent}>
@@ -91,6 +93,7 @@ function Compendium({ getDogData, dogData, setDogData }) {
       </div>
     </div>
   )
+}
 }
 
 export default Compendium
