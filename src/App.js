@@ -1,5 +1,4 @@
 import React, { useState, useEffect  } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Home from './pages/Home/Home'
@@ -11,15 +10,11 @@ import BreedPage from './pages/BreedInfoPage/BreedInfoPage';
 import Footer from './components/Footer/Footer';
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Routes,
+  Route,
   useLocation,
 } from "react-router-dom";
 
-
-import { COLOR_PALETTES }  from './values/colors'
 import {dogBreeds} from './values/dogs'; 
 
 function App() {
@@ -28,8 +23,7 @@ function App() {
   const [dogData, setDogData] = useState(null);
 
   useEffect(() => {
-    const updateFromLocalStorage = async () => { 
-        // const storedData = await getDogData();
+    const updateFromLocalStorage = async () => {
         let storedData = await getDogData();
          
 
@@ -44,10 +38,9 @@ function App() {
 
   function updateDogSeen(breedName) {
     let dogData = JSON.parse(localStorage.getItem('dogData'));
-    dogData[breedName].seen = true; 
-    localStorage.setItem('dogData', JSON.stringify(dogData)); 
-    setDogData(dogData)
-    console.log('updateDogSeen:', dogData)
+    dogData[breedName].seen = true;
+    localStorage.setItem('dogData', JSON.stringify(dogData));
+    setDogData(dogData);
   }
 
   const createDogDataObject = () => {
@@ -58,45 +51,25 @@ function App() {
   }
 
   function getDogData() {
-    console.log("Inside getDogData, localStorage content:", localStorage.getItem('dogData')); // Inspect the data
-    
-    // setDogData(JSON.parse(localStorage.getItem('dogData')));
-    // console.log('getDogData:', dogData) 
-    // if(dogData == null) {
-    //   console.log('99: DogData NULL!!', dogBreeds)
-    //     setDogData(createDogDataObject())        
-    // }      
+    const storedData = localStorage.getItem('dogData');
 
-    const storedData = localStorage.getItem('dogData'); // Fetch from localStorage
     if (storedData === null) {
-      setDogData(JSON.parse(localStorage.getItem('dogData')));
-    console.log('getDogData:', dogData) 
-      } else {
-        const dogData = JSON.parse(storedData);
-        setDogData(dogData); 
-        return dogData;
-    }              
-    return dogData; 
+      return null;
+    }
+
+    return JSON.parse(storedData);
   }
 
 
   return (
     <div className="App">
-      {/* <Router> */}
-        <Navbar />
-        <Routes>
-          <Route path='/' element={<Home getDogData={getDogData} dogData={dogData} setDogData={setDogData} updateDogSeen={updateDogSeen} />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/compendium' element={<Compendium getDogData={getDogData} setDogData={setDogData} dogData={dogData} />} />
-          <Route path='/compendium/:breed' element={<BreedPage />} />
-        </Routes>
-      
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        
-      </header> */}
-        
-      {/* </Router> */}
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home getDogData={getDogData} dogData={dogData} setDogData={setDogData} updateDogSeen={updateDogSeen} />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/compendium' element={<Compendium getDogData={getDogData} setDogData={setDogData} dogData={dogData} />} />
+        <Route path='/compendium/:breed' element={<BreedPage />} />
+      </Routes>
       <Footer />
     </div>
   );

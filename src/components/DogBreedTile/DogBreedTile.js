@@ -15,7 +15,7 @@ const DogBreedTile = ({title, seen}) => {
           <Link to={tilePath} className={styles.tileLink}>
             <div className={styles.dogTile}>
               <div className={styles.tileImage}>
-              <img src={`/compendium/${title}/image.jpg`} alt={`Image of a ${title} missing`} /> 
+              <img src={`/compendium/${title}/image.jpg`} alt={`${title} dog`} /> 
               </div>
                 
               <p>{title}</p> 
