@@ -13,12 +13,10 @@ const BreedInfoPage = () => {
   const [stats, setStats] = useState(null);
 
   let { breed } = useParams();
-  // Properly capitalize each word for directory name (e.g., "american-hairless" → "American Hairless")
   let breedName = breed
     .split('-')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
-  // Keep original param with dashes for filename
   const breedFileName = breed;
 
   useEffect(() => {
@@ -30,11 +28,9 @@ const BreedInfoPage = () => {
         const frontmatter = match[1];
         const content = match[2];
 
-        // Parse image_link (legacy fallback)
         const imageLinkMatch = frontmatter.match(/image_link:\s*(.+)/);
         const imageLink = imageLinkMatch ? imageLinkMatch[1].trim() : null;
 
-        // Parse images section (new structure)
         const imagesMatch = frontmatter.match(/images:\s*\n((?:\s+\w+:.*\n?)*)/);
         let parsedImages = null;
 
@@ -42,14 +38,12 @@ const BreedInfoPage = () => {
           parsedImages = {};
           const imagesSection = imagesMatch[1];
 
-          // Parse individual image fields
           const thumbnailMatch = imagesSection.match(/\s+thumbnail:\s*"?([^"\n]+)"?/);
           if (thumbnailMatch) parsedImages.thumbnail = thumbnailMatch[1].trim();
 
           const heroMatch = imagesSection.match(/\s+hero:\s*"?([^"\n]+)"?/);
           if (heroMatch) parsedImages.hero = heroMatch[1].trim();
 
-          // Parse gallery array
           const galleryMatch = imagesSection.match(/\s+gallery:\s*\[(.*?)\]/);
           if (galleryMatch) {
             const galleryItems = galleryMatch[1].split(',').map(item => item.trim().replace(/"/g, ''));
@@ -57,11 +51,9 @@ const BreedInfoPage = () => {
           }
         }
 
-        // Parse image credits
         const imageCreditsMatch = frontmatter.match(/image_credits:\s*"?([^"\n]+)"?/);
         const imageCredits = imageCreditsMatch ? imageCreditsMatch[1].trim() : null;
 
-        // Parse stats section
         const statsMatch = frontmatter.match(/stats:\s*\n((?:\s+\w+:.*\n?)*)/);
         let parsedStats = null;
 
@@ -117,22 +109,11 @@ const BreedInfoPage = () => {
           content: markdownContent
         } = parseFrontmatter(markdown);
 
-        // Store Wikipedia fallback if available
         setWikipediaFallback(imageLink);
-
-        // Store stats if available
         setStats(parsedStats);
-
-        // Smart image resolution with fallback priority:
-        // 1. images.hero (from frontmatter)
-        // 2. images.thumbnail (fallback)
-        // 3. images.gallery[0] (first gallery image)
-        // 4. Hardcoded /compendium/{breed}/image.jpg (convention)
-        // 5. image_link (Wikipedia fallback)
 
         const tryImagePaths = [];
 
-        // Add frontmatter image paths if available
         if (images?.hero) {
           tryImagePaths.push(`/compendium/${breedName}/${images.hero}`);
         }
@@ -143,13 +124,10 @@ const BreedInfoPage = () => {
           tryImagePaths.push(`/compendium/${breedName}/${images.gallery[0]}`);
         }
 
-        // Always add the hardcoded convention as fallback
         tryImagePaths.push(`/compendium/${breedName}/image.jpg`);
 
-        // Try images in priority order
         const tryNextImage = (index) => {
           if (index >= tryImagePaths.length) {
-            // All local images failed, use Wikipedia fallback if available
             setImageUrl(imageLink || tryImagePaths[tryImagePaths.length - 1]);
             return;
           }
@@ -159,13 +137,11 @@ const BreedInfoPage = () => {
             setImageUrl(tryImagePaths[index]);
           };
           img.onerror = () => {
-            // Try next image in fallback chain
             tryNextImage(index + 1);
           };
           img.src = tryImagePaths[index];
         };
 
-        // Start trying images from the first one
         tryNextImage(0);
 
         remark()

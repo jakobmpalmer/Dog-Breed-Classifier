@@ -10,7 +10,6 @@ const DogBreedTile = ({title, seen, thumbnailPath}) => {
     .map(x => x.toLowerCase())
     .join('-');
 
-    // Use provided thumbnailPath or fallback to convention
     const imageSrc = thumbnailPath || `/compendium/${title}/image.jpg`;
 
     return (

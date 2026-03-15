@@ -2,12 +2,10 @@ import React from 'react';
 import styles from './BreedStatsBox.module.scss';
 
 const BreedStatsBox = ({ stats, breedName }) => {
-  // Don't render if no stats provided
   if (!stats || Object.keys(stats).length === 0) {
     return null;
   }
 
-  // Badge color mapping
   const getBadgeClass = (category, value) => {
     if (!value) return '';
 

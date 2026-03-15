@@ -19,7 +19,7 @@ import {dogBreeds} from './values/dogs';
 
 function App() {
 
-  let location = useLocation(); // Get the current location
+  let location = useLocation();
   const [dogData, setDogData] = useState(null);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function App() {
         setDogData(storedData);
     };
     updateFromLocalStorage();
-}, [location]); // Include 'location' (from React Router) in the dependency array
+}, [location]);
 
   function updateDogSeen(breedName) {
     let dogData = JSON.parse(localStorage.getItem('dogData'));
