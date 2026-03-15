@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Bluetick_Coonhound.jpg/800px-Bluetick_Coonhound.jpg
+---
+
 Canis lupus familiaris (Bluetick Coonhound): A Symphony of Scent and Sound
 
 Lineage and Development: The Bluetick Coonhound shares roots with the English Foxhound and likely some French hound breeds brought to America by early settlers. It was meticulously developed in the Southern United States for its raccoon hunting prowess.

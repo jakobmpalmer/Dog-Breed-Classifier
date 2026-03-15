@@ -1,95 +1,130 @@
 import React, { useState, useEffect } from 'react';
-
-import CircularProgress, {
-  circularProgressClasses,
-} from '@mui/material/CircularProgress';
-
+import CircularProgress from '@mui/material/CircularProgress';
+import styles from './ImageUpload.module.scss';
 
 function ImageUpload({ updateDogSeen }) {
   const [selectedImage, setSelectedImage] = useState(null);
-
   const [predictionAccuracy, setPredictionAccuracy] = useState(null);
-  const [prediction, setPrediction] = useState(null); // State for prediction
-
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  const [predictionLoading, setPredictionLoading] = useState(null);
-  
-  // Update 'seen' status when a dog is viewed
-  // function updateDogSeen(breedName) {
-  //   let dogData = JSON.parse(localStorage.getItem('dogData'));
-  //   dogData[breedName].seen = true; 
-  //   localStorage.setItem('dogData', JSON.stringify(dogData)); 
-  // }
+  const [prediction, setPrediction] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [predictionLoading, setPredictionLoading] = useState(false);
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
-    console.log(prediction)
   };
 
   useEffect(() => {
-    // Reset prediction and accuracy only if they were previously set
-    if (prediction !== null || predictionAccuracy !== null) {
-      setPrediction(null);
-      setPredictionAccuracy(null);
-    }
-  }, [selectedImage]); 
+    setPrediction(null);
+    setPredictionAccuracy(null);
+    setErrorMessage('');
+  }, [selectedImage]);
 
   const handleButtonClick = async () => {
+    setPredictionLoading(true);
+    setErrorMessage('');
+
     try {
       const formData = new FormData();
       formData.append('image', selectedImage);
 
-      // const response = await fetch('https:// 54.215.128.159/predict', {
-      // const response = await fetch ("https://ec2-54-215-128-159.us-west-1.compute.amazonaws.com/predict", {
-        const response = await fetch ("https://api.jakobmpalmer.com/predict", {
+      const apiUrl = process.env.REACT_APP_API_URL;
+      if (!apiUrl) {
+        throw new Error('API URL not configured');
+      }
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData
       });
 
+      if (!response.ok) {
+        throw new Error('Failed to get prediction from server');
+      }
+
       const data = await response.json();
-      console.log("Prediction:", data);
-      setPrediction(data.breed); // Update state with prediction
-      updateDogSeen(data.breed) // <---- UPDATE LOCAL STORAGE
-      setPredictionAccuracy(Math.round(data.accuracy * 10000) / 100); // Update state with prediction
-      setErrorMessage('')
+      setPrediction(data.breed);
+      updateDogSeen(data.breed);
+      setPredictionAccuracy(Math.round(data.accuracy * 10000) / 100);
     } catch (error) {
-      console.error("Error sending request:", error);
-      setErrorMessage('That didnt work\n', error)
+      setErrorMessage('Unable to classify image. Please try again with a different photo.');
+    } finally {
+      setPredictionLoading(false);
     }
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
-      {selectedImage && (
-        <div>
-          <img alt="Preview" src={URL.createObjectURL(selectedImage)} />
-          <div>
-            <button onClick={handleButtonClick}>Send Image</button>
-            {predictionLoading ? 
-              function GradientCircularProgress() {
-                return (
-                  <React.Fragment>
-                    <svg width={0} height={0}>
-                      <defs>
-                        <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#e01cd5" />
-                          <stop offset="100%" stopColor="#1CB5E0" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <CircularProgress sx={{ 'svg circle': { stroke: 'url(#my_gradient)' } }} />
-                  </React.Fragment>
-                );
-              } : <h3></h3>}
-            {/* {predictionAccuracy ? <h3>I am {predictionAccuracy}% sure</h3> : <h3></h3>} */}
-            {prediction  ? <h3>I think this is a, <i>{prediction}</i></h3> : <h3></h3>}
-            <h3>{errorMessage}</h3>
+    <div className={styles.uploadContainer}>
+      <div className={styles.uploadArea}>
+        <label htmlFor="file-input" className={styles.uploadLabel}>
+          <div className={styles.uploadIcon}>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
           </div>
-          
+          <p className={styles.uploadText}>Click to upload or drag and drop</p>
+          <p className={styles.uploadHint}>PNG, JPG, JPEG (MAX. 10MB)</p>
+        </label>
+        <input
+          id="file-input"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className={styles.fileInput}
+        />
+      </div>
+
+      {selectedImage && (
+        <div className={styles.previewContainer}>
+          <div className={styles.imageWrapper}>
+            <img
+              alt="Preview"
+              src={URL.createObjectURL(selectedImage)}
+              className={styles.previewImage}
+            />
+          </div>
+
+          <button
+            onClick={handleButtonClick}
+            disabled={predictionLoading}
+            className={`${styles.classifyButton} ${predictionLoading ? styles.loading : ''}`}
+          >
+            {predictionLoading ? 'Analyzing...' : 'Classify Image'}
+          </button>
+
+          {predictionLoading && (
+            <div className={styles.loadingContainer}>
+              <CircularProgress
+                size={40}
+                sx={{
+                  color: 'var(--color-primary)'
+                }}
+              />
+            </div>
+          )}
+
+          {prediction && (
+            <div className={styles.resultContainer}>
+              <div className={styles.resultCard}>
+                <h3 className={styles.resultTitle}>Classification Result</h3>
+                <p className={styles.breedName}>{prediction}</p>
+                {predictionAccuracy && (
+                  <div className={styles.confidenceContainer}>
+                    <span className={styles.confidenceLabel}>Confidence:</span>
+                    <span className={styles.confidenceValue}>{predictionAccuracy}%</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {errorMessage && (
+            <div className={styles.errorContainer}>
+              <p className={styles.errorMessage}>{errorMessage}</p>
+            </div>
+          )}
         </div>
-        
       )}
     </div>
   );

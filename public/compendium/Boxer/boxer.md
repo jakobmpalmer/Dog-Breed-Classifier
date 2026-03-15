@@ -1,3 +1,14 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/HYPSO_NoX%2C_Boxer_Hund.jpg/800px-HYPSO_NoX%2C_Boxer_Hund.jpg
+stats:
+  size: "Medium to Large (21-25 inches)"
+  weight: "50-80 lbs"
+  lifespan: "10-12 years"
+  exercise: "High"
+  trainability: "Easy"
+  grooming: "Low"
+---
+
 Canis lupus familiaris (Boxer):  Playful Powerhouse
 
 Origins and Development: The Boxer descends from now-extinct German bull-baiting breeds like the Bullenbeisser and breeds related to the Old English Bulldog. They were eventually refined for guarding and companionship roles.

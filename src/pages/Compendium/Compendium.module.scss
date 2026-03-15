@@ -1,34 +1,106 @@
-.backgroundColor {
-  background-color: #FFEBC6;
+.pageContainer {
+    flex: 1;
+    background-color: var(--color-background);
+    min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
+    padding: var(--spacing-2xl) var(--spacing-lg);
 }
+
 .pageContent {
-    max-width: 80%;
-    margin: 0px auto;
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    width: 100%;
 }
 
-.pageTitle {
-  h1 {
-    margin: 0px;
-  }
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
 }
 
+.loadingText {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+}
+
+.title {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    margin-bottom: var(--spacing-md);
+}
+
+.progress {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+}
+
+.progressCount {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-2xl);
+    color: var(--color-primary);
+}
+
+.progressTotal {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-main);
+}
 
 .dogGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust 200px to your desired minimum tile width */
-    gap: 10px; /* Adjust spacing as needed */
-  }
-  
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--spacing-xl);
+    padding-bottom: var(--spacing-2xl);
+}
 
-//   .dog-grid {
-//     display: flex;
-//     flex-wrap: wrap;
-//     justify-content: space-around; /* Distribute items with space around them */
-//     gap: 10px; 
-//   }
-  
-  
-  
+// Responsive design
+@media (max-width: 768px) {
+    .pageContainer {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
 
- 
-  
+    .title {
+        font-size: var(--font-size-3xl);
+    }
+
+    .progress {
+        font-size: var(--font-size-base);
+    }
+
+    .progressCount {
+        font-size: var(--font-size-xl);
+    }
+
+    .dogGrid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .pageContainer {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    .title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .progress {
+        font-size: var(--font-size-sm);
+    }
+
+    .progressCount {
+        font-size: var(--font-size-lg);
+    }
+
+    .dogGrid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: var(--spacing-sm);
+    }
+}

@@ -1,15 +1,156 @@
-import React from 'react'
+import React from 'react';
+import styles from './About.module.scss';
 
 function About() {
   return (
-    <div>
-      <div>About</div>
+    <div className={styles.pageContainer}>
+      <div className={styles.content}>
+        <h1>About This Project</h1>
 
-      <div>
-        <p>This application was made to help </p>
+        <section className={styles.section}>
+          <h2>Project Overview</h2>
+          <p>
+            I built this end-to-end computer vision system after earning my Data Science certificate
+            to refine my practical ML engineering skills. The goal was to experience the complete
+            pipeline—from training a deep learning model, to creating a purpose-built frontend,
+            to deploying both a web application and ML backend API. This project demonstrates
+            full-stack capabilities spanning data science, web development, and cloud infrastructure.
+          </p>
+        </section>
+
+        <section className={styles.section}>
+          <h2>How It Works</h2>
+          <p>
+            The frontend is built with React, featuring image upload and real-time breed prediction
+            display with confidence scores. The backend is a Flask REST API hosted on AWS EC2,
+            serving a DenseNet121 model with custom classification layers. Transfer learning
+            leverages ImageNet pre-trained weights, fine-tuned on 7,946 dog images across 70 breeds.
+            Data augmentation (shear, zoom, horizontal flip) and L1 regularization combat overfitting.
+            The API accepts image uploads, preprocesses them using ImageNet normalization, and
+            returns breed predictions with confidence scores.
+          </p>
+        </section>
+
+        <section className={styles.section}>
+          <h2>The ML Model</h2>
+          <p>
+            The classifier uses <strong>DenseNet121</strong> architecture with transfer learning
+            from ImageNet weights. I trained a custom classification head on a curated dataset of
+            70 dog breeds from Kaggle, including both common domestic breeds and wild canids
+            (Coyote, Dhole, Dingo, African Wild Dog). The model was trained using TensorFlow/Keras
+            with the Adam optimizer and categorical crossentropy loss.
+          </p>
+          <p className={styles.metricPlaceholder}>
+            {/* TODO: Add accuracy metric when calculated */}
+            Validation accuracy: <strong>94.45%</strong>
+          </p>
+        </section>
+
+        <section className={styles.section}>
+          <h2>AWS Deployment</h2>
+          <p>
+            The ML model is deployed as a Flask REST API on an AWS EC2 instance. The API handles
+            image preprocessing, model inference, and returns JSON responses with breed predictions
+            and confidence scores. Deploying and managing the backend infrastructure taught me
+            valuable lessons about cloud hosting, API design, and managing compute costs for ML workloads.
+          </p>
+        </section>
+
+        <section className={styles.section}>
+          <h2>Challenges Overcome</h2>
+
+          <div className={styles.challenge}>
+            <h3>Data Augmentation & Overfitting</h3>
+            <p>
+              Initial training showed severe overfitting—high training accuracy but poor validation
+              performance. I implemented comprehensive data augmentation strategies (random shear, zoom,
+              horizontal flips) and added L1 regularization to the custom classification layers. This
+              significantly improved generalization to unseen images.
+            </p>
+          </div>
+
+          <div className={styles.challenge}>
+            <h3>Real-World Data Complexity</h3>
+            <p>
+              Computer vision in practice presents challenges that clean datasets don't reveal. Some
+              individual dogs don't exhibit typical breed characteristics, breed mixes confuse the
+              classifier, and photo quality/angles vary dramatically. This taught me that model
+              performance on curated test sets doesn't always translate directly to production use cases.
+            </p>
+          </div>
+
+          <div className={styles.challenge}>
+            <h3>Backend Deployment & API Design</h3>
+            <p>
+              Deploying the Flask API on AWS EC2 required learning server configuration, dependency
+              management, and API endpoint design. Managing the backend to handle image uploads, run
+              inference efficiently, and return predictions reliably presented real-world engineering
+              challenges beyond the model training itself.
+            </p>
+          </div>
+        </section>
+
+        <section className={styles.section}>
+          <h2>Tech Stack</h2>
+          <ul className={styles.techList}>
+            <li><strong>Frontend:</strong> React, Material-UI, React Router, SCSS</li>
+            <li><strong>Backend:</strong> Flask REST API, TensorFlow/Keras, AWS EC2</li>
+            <li><strong>ML:</strong> DenseNet121 (transfer learning), ImageNet pre-trained weights</li>
+            <li><strong>Data:</strong> 7,946 training images, 70 dog breeds (Kaggle dataset)</li>
+            <li><strong>Tools:</strong> Python, scikit-learn, Jupyter Notebooks (Kaggle)</li>
+          </ul>
+        </section>
+
+        <section className={styles.section}>
+          <h2>Links</h2>
+          <ul className={styles.linksList}>
+            <li>
+              <strong>Portfolio:</strong>{' '}
+              <a
+                href="https://jakobmpalmer.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                jakobmpalmer.com
+              </a>
+            </li>
+            <li>
+              <strong>LinkedIn:</strong>{' '}
+              <a
+                href="https://www.linkedin.com/in/jakob-m-palmer/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                jakob-m-palmer
+              </a>
+            </li>
+            <li>
+              <strong>Kaggle Notebook:</strong>{' '}
+              {/* TODO: Add Kaggle notebook link */}
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Training Process
+              </a>
+            </li>
+            <li>
+              <strong>GitHub:</strong>{' '}
+              <a
+                href="https://github.com/jakobmpalmer/Dog-Breed-Classifier"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Source Code
+              </a>
+            </li>
+          </ul>
+        </section>
       </div>
     </div>
-  )
+  );
 }
 
-export default About
+export default About;

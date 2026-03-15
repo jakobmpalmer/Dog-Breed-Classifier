@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/African_wild_dog_%28Lycaon_pictus%29.jpg/800px-African_wild_dog_%28Lycaon_pictus%29.jpg
+---
+
 Other Names: Lycaon Pictus, The Painted Wolf, a Hyper-Carnivorous Specialist
 
 Taxonomy and Phylogeny: The African Wild Dog (Lycaon pictus) belongs to the Canidae family, yet occupies a unique taxonomic position.  Classified within its own genus, Lycaon, it diverged from other canids like wolves and jackals millions of years ago.

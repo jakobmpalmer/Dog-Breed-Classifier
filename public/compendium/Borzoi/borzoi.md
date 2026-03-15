@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Borzoi_800.jpg/800px-Borzoi_800.jpg
+---
+
 Canis lupus familiaris (Borzoi): The Aristocrat of Sighthounds
 
 Lineage and Historical Role: Descended from ancient sighthounds of Central Asia, the Borzoi (also known as the Russian Wolfhound) was prized by Russian nobility for its wolf-hunting prowess and regal elegance. They hunted in teams, using their speed and agility to run down prey.

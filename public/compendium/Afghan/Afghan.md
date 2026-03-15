@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Afghane.jpg/800px-Afghane.jpg
+---
+
 Physical Description: The Afghan Hound presents a striking profile. Tall and lean, it possesses a long, flowing coat of exquisite silkiness. A distinctive topknot and a tail ending in a ring-curl further define the breed's appearance. Its high hipbone placement and long, powerful gait create an aura of regal bearing.
 
 Origins and Purpose:  Emerging from the mountainous regions of Afghanistan, the Afghan Hound's history is deeply intertwined with nomadic tribes. Originally prized for its hunting prowess, the breed was valued for its speed, agility, and independent decision-making when pursuing prey like gazelle and even leopards.

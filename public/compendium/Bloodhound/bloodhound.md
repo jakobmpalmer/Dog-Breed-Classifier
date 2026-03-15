@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bloodhound_800.jpg/800px-Bloodhound_800.jpg
+---
+
 Canis lupus familiaris (Bloodhound): Master of Scent
 
 Lineage and Origins:  The Bloodhound's history is steeped in legend and lore. It's believed they descended from the St. Hubert hound, carefully cultivated by monks in Belgium for centuries. These tracking dogs were famed for their exceptional scenting abilities.

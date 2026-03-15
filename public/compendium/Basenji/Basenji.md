@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Basenji_600.jpg/800px-Basenji_600.jpg
+---
+
 Canis lupus familiaris (Basenji)
 
 Origins and Antiquity: The Basenji's ancestry stretches back to the pariah dogs of ancient Africa, making them one of the oldest domestic dog breeds.  Their likeness is depicted in Egyptian art, showcasing their distinctive traits for millennia. They were prized as versatile hunting companions in Central Africa.
