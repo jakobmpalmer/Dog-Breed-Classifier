@@ -1,0 +1,254 @@
+.uploadContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+    width: 100%;
+}
+
+.uploadArea {
+    width: 100%;
+    border: 2px dashed var(--color-border-dark);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-background-secondary);
+    transition: all var(--transition-base);
+    cursor: pointer;
+
+    &:hover {
+        border-color: var(--color-primary);
+        background-color: var(--color-primary-light);
+    }
+}
+
+.uploadLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-3xl) var(--spacing-xl);
+    cursor: pointer;
+}
+
+.uploadIcon {
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+    transition: color var(--transition-base);
+
+    .uploadArea:hover & {
+        color: var(--color-primary);
+    }
+}
+
+.uploadText {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-main);
+    margin-bottom: var(--spacing-xs);
+}
+
+.uploadHint {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.fileInput {
+    display: none;
+}
+
+.previewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    width: 100%;
+}
+
+.imageWrapper {
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    background-color: var(--color-background-secondary);
+}
+
+.previewImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    max-height: 500px;
+}
+
+.classifyButton {
+    padding: var(--spacing-md) var(--spacing-2xl);
+    background-color: var(--color-primary);
+    color: white;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-md);
+
+    &:hover:not(:disabled) {
+        background-color: var(--color-primary-hover);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+        box-shadow: var(--shadow-sm);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    &.loading {
+        background-color: var(--color-text-muted);
+    }
+}
+
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-lg);
+}
+
+.resultContainer {
+    width: 100%;
+    max-width: 600px;
+    animation: slideIn 0.3s ease-out;
+}
+
+.resultCard {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+}
+
+.resultTitle {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+.breedName {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    margin-bottom: var(--spacing-lg);
+}
+
+.confidenceContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background-color: var(--color-primary-light);
+    border-radius: var(--radius-md);
+}
+
+.confidenceLabel {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+}
+
+.confidenceValue {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.errorContainer {
+    width: 100%;
+    max-width: 600px;
+    padding: var(--spacing-lg);
+    background-color: #FEE2E2;
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-md);
+}
+
+.errorMessage {
+    font-size: var(--font-size-base);
+    color: var(--color-error);
+    text-align: center;
+    font-weight: var(--font-weight-medium);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .uploadLabel {
+        padding: var(--spacing-xl) var(--spacing-md);
+    }
+
+    .uploadIcon svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .uploadText {
+        font-size: var(--font-size-base);
+    }
+
+    .breedName {
+        font-size: var(--font-size-2xl);
+    }
+
+    .confidenceValue {
+        font-size: var(--font-size-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .uploadLabel {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .uploadIcon svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .uploadText {
+        font-size: var(--font-size-sm);
+    }
+
+    .uploadHint {
+        font-size: var(--font-size-xs);
+    }
+
+    .classifyButton {
+        padding: var(--spacing-sm) var(--spacing-xl);
+        font-size: var(--font-size-sm);
+    }
+
+    .breedName {
+        font-size: var(--font-size-xl);
+    }
+
+    .resultCard {
+        padding: var(--spacing-md);
+    }
+}

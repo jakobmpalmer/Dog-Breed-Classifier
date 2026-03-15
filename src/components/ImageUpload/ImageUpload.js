@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import styles from './ImageUpload.module.scss';
 
 function ImageUpload({ updateDogSeen }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -13,11 +14,10 @@ function ImageUpload({ updateDogSeen }) {
   };
 
   useEffect(() => {
-    if (prediction !== null || predictionAccuracy !== null) {
-      setPrediction(null);
-      setPredictionAccuracy(null);
-    }
-  }, [selectedImage, prediction, predictionAccuracy]); 
+    setPrediction(null);
+    setPredictionAccuracy(null);
+    setErrorMessage('');
+  }, [selectedImage]);
 
   const handleButtonClick = async () => {
     setPredictionLoading(true);
@@ -53,41 +53,77 @@ function ImageUpload({ updateDogSeen }) {
   };
 
   return (
-    <div>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
+    <div className={styles.uploadContainer}>
+      <div className={styles.uploadArea}>
+        <label htmlFor="file-input" className={styles.uploadLabel}>
+          <div className={styles.uploadIcon}>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
+          <p className={styles.uploadText}>Click to upload or drag and drop</p>
+          <p className={styles.uploadHint}>PNG, JPG, JPEG (MAX. 10MB)</p>
+        </label>
+        <input
+          id="file-input"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className={styles.fileInput}
+        />
+      </div>
+
       {selectedImage && (
-        <div>
-          <img alt="Preview" src={URL.createObjectURL(selectedImage)} />
-          <div>
-            <button onClick={handleButtonClick} disabled={predictionLoading}>
-              {predictionLoading ? 'Analyzing...' : 'Send Image'}
-            </button>
+        <div className={styles.previewContainer}>
+          <div className={styles.imageWrapper}>
+            <img
+              alt="Preview"
+              src={URL.createObjectURL(selectedImage)}
+              className={styles.previewImage}
+            />
+          </div>
 
-            {predictionLoading && (
-              <div>
-                <CircularProgress sx={{ 'svg circle': { stroke: 'url(#my_gradient)' } }} />
-                <svg width={0} height={0}>
-                  <defs>
-                    <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#e01cd5" />
-                      <stop offset="100%" stopColor="#1CB5E0" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
-            )}
+          <button
+            onClick={handleButtonClick}
+            disabled={predictionLoading}
+            className={`${styles.classifyButton} ${predictionLoading ? styles.loading : ''}`}
+          >
+            {predictionLoading ? 'Analyzing...' : 'Classify Image'}
+          </button>
 
-            {prediction && (
-              <div>
-                <h3>I think this is a <i>{prediction}</i></h3>
+          {predictionLoading && (
+            <div className={styles.loadingContainer}>
+              <CircularProgress
+                size={40}
+                sx={{
+                  color: 'var(--color-primary)'
+                }}
+              />
+            </div>
+          )}
+
+          {prediction && (
+            <div className={styles.resultContainer}>
+              <div className={styles.resultCard}>
+                <h3 className={styles.resultTitle}>Classification Result</h3>
+                <p className={styles.breedName}>{prediction}</p>
                 {predictionAccuracy && (
-                  <h3>Confidence: {predictionAccuracy}%</h3>
+                  <div className={styles.confidenceContainer}>
+                    <span className={styles.confidenceLabel}>Confidence:</span>
+                    <span className={styles.confidenceValue}>{predictionAccuracy}%</span>
+                  </div>
                 )}
               </div>
-            )}
+            </div>
+          )}
 
-            {errorMessage && <h3>{errorMessage}</h3>}
-          </div>
+          {errorMessage && (
+            <div className={styles.errorContainer}>
+              <p className={styles.errorMessage}>{errorMessage}</p>
+            </div>
+          )}
         </div>
       )}
     </div>

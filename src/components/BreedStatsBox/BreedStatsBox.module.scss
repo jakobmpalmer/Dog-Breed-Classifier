@@ -1,0 +1,176 @@
+.statsCard {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  height: fit-content;
+  position: sticky;
+  top: calc(var(--navbar-height) + var(--spacing-lg));
+}
+
+.cardTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+  margin: 0 0 var(--spacing-lg) 0;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.statsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.statRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.statRowThree {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.statItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  min-width: 0;
+}
+
+.statIcon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary-light);
+  border-radius: var(--radius-md);
+  color: var(--color-primary);
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.statContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.statLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  overflow-wrap: break-word;
+}
+
+.statValue {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-main);
+  overflow-wrap: break-word;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px var(--spacing-sm);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: capitalize;
+  width: fit-content;
+}
+
+// Badge color variants
+.badgeGreen {
+  background-color: #DEF7EC;
+  color: #03543F;
+}
+
+.badgeBlue {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.badgeOrange {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.badgeRed {
+  background-color: #FEE2E2;
+  color: #991B1B;
+}
+
+.badgeDefault {
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-main);
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .statsCard {
+    position: static;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .cardTitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .statsList {
+    gap: var(--spacing-md);
+  }
+
+  .statRow {
+    grid-template-columns: 1fr;
+  }
+
+  .statRowThree {
+    grid-template-columns: 1fr;
+  }
+
+  .statIcon {
+    width: 32px;
+    height: 32px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .statsCard {
+    padding: var(--spacing-md);
+  }
+
+  .statsList {
+    gap: var(--spacing-sm);
+  }
+
+  .statIcon {
+    width: 28px;
+    height: 28px;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}

@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Berner_Sennenhund_Hanegg.jpg/800px-Berner_Sennenhund_Hanegg.jpg
+---
+
 Taxonomy and Lineage: The Bernese Mountain Dog (Berner Sennenhund) belongs to the Canidae family and hails from the Bern canton in Switzerland. Classified as one of the four Sennenhund breeds, it has its roots in ancient mastiff-type dogs.
 
 Morphological Characteristics:  Bernese Mountain Dogs are instantly recognizable by their large, sturdy build and striking tri-color coat (jet black, rich rust, and clear white). Their thick, double coat was essential for protection against harsh Alpine conditions. Noteworthy characteristics include a broad head, gentle expression, and a blocky muzzle.

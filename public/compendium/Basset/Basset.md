@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Basset_Hound_600.jpg/800px-Basset_Hound_600.jpg
+---
+
 Morphological Adaptations: The Basset Hound is iconic for its short stature, long body, and distinctive loose skin folds. These features are not merely aesthetic; they are the result of selective breeding focused on enhancing scenting abilities. The breed's low-slung build keeps its nose close to the ground, maximizing the detection of scent trails. The long, pendulous ears aid in gathering scent particles, while skin folds around the face may help trap scent molecules.
 
 Origins and Purpose: Descending from French hunting hounds, the Basset Hound was specifically developed to trail small game such as rabbits and hares through dense undergrowth. Its deliberate but relentless pace and powerful tracking instincts suit this purpose.

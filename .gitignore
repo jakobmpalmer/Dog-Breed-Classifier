@@ -131,3 +131,9 @@ dist
 
 # Internal documentation and audit reports
 docs/
+
+# React build output
+/build
+
+# Image download script
+download-images.js

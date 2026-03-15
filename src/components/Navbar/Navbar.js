@@ -4,36 +4,24 @@ import styles from './Navbar.module.scss';
 
 function Navbar() {
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.navTitle}>
-        <div className={styles.navTitleHighlight}>
-          <a href='https://www.linkedin.com/in/jakob-m-palmer/' target='_blank' rel="noopener noreferrer">
+    <nav className={styles.navbar}>
+      <div className={styles.navbarContainer}>
+        <div className={styles.navBrand}>
+          <Link to='/'>
             Jakob Paulson-Palmer
+          </Link>
+        </div>
+
+        <div className={styles.navLinks}>
+          <Link to="/" className={styles.navLink}>Home</Link>
+          <Link to="/about" className={styles.navLink}>About</Link>
+          <Link to="/compendium" className={styles.navLink}>Compendium</Link>
+          <a href='https://github.com/jakobmpalmer' target='_blank' rel="noopener noreferrer" className={styles.navLink}>
+            GitHub
           </a>
         </div>
       </div>
-
-      <div style={{
-        display: 'flex',
-        flex: 1,
-        height: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}>
-        <div className={styles.navItem}>
-          <Link to="/">Home</Link>
-        </div>
-        <div className={styles.navItem}>
-          <Link to="/about">About</Link>
-        </div>
-        <div className={styles.navItem}>
-          <Link to="/compendium">Compendium</Link>
-        </div>
-        <div className={styles.navItem}>
-          <a href='https://github.com/jakobmpalmer' target='_blank' rel="noopener noreferrer">Github</a>
-        </div>
-      </div>
-    </div>
+    </nav>
   );
 }
 

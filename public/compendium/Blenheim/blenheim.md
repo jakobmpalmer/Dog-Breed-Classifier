@@ -1,3 +1,7 @@
+---
+image_link: https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Cavalier_King_Charles_Spaniel_Blenheim.jpg/800px-Cavalier_King_Charles_Spaniel_Blenheim.jpg
+---
+
 Other Names: Cavvies, Cavaliers, Comforter Spaniels (reflecting their role as lapdogs)
 
 Origins and Purpose: Their ancestors were small toy spaniels depicted in European art as far back as the 16th century. Initially, they served as companions for royalty and the wealthy, prized for their gentle temperament and ability to warm laps. They were also thought to attract fleas away from their owners! Over time, they were crossed with flat-nosed breeds, leading to the modern Cavalier's distinctive features.
