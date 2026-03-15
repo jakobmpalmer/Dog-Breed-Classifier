@@ -9,7 +9,6 @@ const BreedInfoPage = () => {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
-  const [wikipediaFallback, setWikipediaFallback] = useState(null);
   const [stats, setStats] = useState(null);
 
   let { breed } = useParams();
@@ -96,7 +95,6 @@ const BreedInfoPage = () => {
       const filePath = `/compendium/${breedName}/${breedFileName}.md`;
       setLoading(true);
       setImageUrl(null);
-      setWikipediaFallback(null);
 
       try {
         const response = await fetch(filePath);
@@ -104,12 +102,10 @@ const BreedInfoPage = () => {
         const {
           imageLink,
           images,
-          imageCredits,
           stats: parsedStats,
           content: markdownContent
         } = parseFrontmatter(markdown);
 
-        setWikipediaFallback(imageLink);
         setStats(parsedStats);
 
         const tryImagePaths = [];
