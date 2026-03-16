@@ -6,6 +6,7 @@ function ImageUpload({ updateDogSeen }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [predictionAccuracy, setPredictionAccuracy] = useState(null);
   const [prediction, setPrediction] = useState(null);
+  const [top5Predictions, setTop5Predictions] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [predictionLoading, setPredictionLoading] = useState(false);
 
@@ -16,6 +17,7 @@ function ImageUpload({ updateDogSeen }) {
   useEffect(() => {
     setPrediction(null);
     setPredictionAccuracy(null);
+    setTop5Predictions(null);
     setErrorMessage('');
   }, [selectedImage]);
 
@@ -45,6 +47,9 @@ function ImageUpload({ updateDogSeen }) {
       setPrediction(data.breed);
       updateDogSeen(data.breed);
       setPredictionAccuracy(Math.round(data.accuracy * 10000) / 100);
+      if (data.top_5) {
+        setTop5Predictions(data.top_5);
+      }
     } catch (error) {
       setErrorMessage('Unable to classify image. Please try again with a different photo.');
     } finally {
@@ -56,15 +61,27 @@ function ImageUpload({ updateDogSeen }) {
     <div className={styles.uploadContainer}>
       <div className={styles.uploadArea}>
         <label htmlFor="file-input" className={styles.uploadLabel}>
-          <div className={styles.uploadIcon}>
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="17 8 12 3 7 8" />
-              <line x1="12" y1="3" x2="12" y2="15" />
-            </svg>
-          </div>
-          <p className={styles.uploadText}>Click to upload or drag and drop</p>
-          <p className={styles.uploadHint}>PNG, JPG, JPEG (MAX. 10MB)</p>
+          {selectedImage ? (
+            <div className={styles.imageWrapper}>
+              <img
+                alt="Preview"
+                src={URL.createObjectURL(selectedImage)}
+                className={styles.previewImage}
+              />
+            </div>
+          ) : (
+            <>
+              <div className={styles.uploadIcon}>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+              </div>
+              <p className={styles.uploadText}>Click to upload or drag and drop</p>
+              <p className={styles.uploadHint}>PNG, JPG, JPEG (MAX. 10MB)</p>
+            </>
+          )}
         </label>
         <input
           id="file-input"
@@ -77,14 +94,6 @@ function ImageUpload({ updateDogSeen }) {
 
       {selectedImage && (
         <div className={styles.previewContainer}>
-          <div className={styles.imageWrapper}>
-            <img
-              alt="Preview"
-              src={URL.createObjectURL(selectedImage)}
-              className={styles.previewImage}
-            />
-          </div>
-
           <button
             onClick={handleButtonClick}
             disabled={predictionLoading}
@@ -113,6 +122,22 @@ function ImageUpload({ updateDogSeen }) {
                   <div className={styles.confidenceContainer}>
                     <span className={styles.confidenceLabel}>Confidence:</span>
                     <span className={styles.confidenceValue}>{predictionAccuracy}%</span>
+                  </div>
+                )}
+
+                {top5Predictions && top5Predictions.length > 1 && (
+                  <div className={styles.otherPredictionsContainer}>
+                    <h4 className={styles.otherPredictionsTitle}>Other Possibilities:</h4>
+                    <div className={styles.otherPredictionsList}>
+                      {top5Predictions.slice(1).map((pred, index) => (
+                        <div key={index} className={styles.otherPredictionItem}>
+                          <span className={styles.otherBreedName}>{pred.breed}</span>
+                          <span className={styles.otherConfidence}>
+                            {Math.round(pred.confidence * 10000) / 100}%
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
