@@ -137,3 +137,13 @@ docs/
 
 # Image download script
 download-images.js
+
+# AI tool config
+.claude/
+CLAUDE.md
+AGENTS.md
+.cursor/
+.cursorrules
+.codex/
+.continue/
+.aider*
