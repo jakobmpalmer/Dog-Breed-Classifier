@@ -22,8 +22,9 @@ function About() {
           <h2>How It Works</h2>
           <p>
             The frontend is built with React, featuring image upload and real-time breed prediction
-            display with confidence scores. The backend is a Flask REST API hosted on AWS EC2,
-            serving a DenseNet121 model with custom classification layers. Transfer learning
+            display with confidence scores. The backend is a Flask API, originally on AWS EC2, now
+            served from Google Cloud Run with ONNX Runtime. It serves a DenseNet121 model with
+            custom classification layers. Transfer learning
             leverages ImageNet pre-trained weights, fine-tuned on 7,946 dog images across 70 breeds.
             Data augmentation (shear, zoom, horizontal flip) and L1 regularization combat overfitting.
             The API accepts image uploads, preprocesses them using ImageNet normalization, and
@@ -41,18 +42,19 @@ function About() {
             with the Adam optimizer and categorical crossentropy loss.
           </p>
           <p className={styles.metricPlaceholder}>
-            {/* TODO: Add accuracy metric when calculated */}
-            Validation accuracy: <strong>94.45%</strong>
+            <strong>96.4%</strong> test accuracy on 700 held-out images (100% top-5).
           </p>
         </section>
 
         <section className={styles.section}>
-          <h2>AWS Deployment</h2>
+          <h2>Deployment</h2>
           <p>
-            The ML model is deployed as a Flask REST API on an AWS EC2 instance. The API handles
-            image preprocessing, model inference, and returns JSON responses with breed predictions
-            and confidence scores. Deploying and managing the backend infrastructure taught me
-            valuable lessons about cloud hosting, API design, and managing compute costs for ML workloads.
+            The ML model is deployed as a Flask REST API. The API handles image preprocessing,
+            model inference, and returns JSON responses with breed predictions and confidence
+            scores. It originally ran on an AWS EC2 instance; it is now served from Google Cloud Run
+            with ONNX Runtime, which scales to zero when idle so it costs nothing between requests.
+            Deploying and managing the backend infrastructure taught me valuable lessons about cloud
+            hosting, API design, and managing compute costs for ML workloads.
           </p>
         </section>
 
@@ -94,7 +96,7 @@ function About() {
           <h2>Tech Stack</h2>
           <ul className={styles.techList}>
             <li><strong>Frontend:</strong> React, Material-UI, React Router, SCSS</li>
-            <li><strong>Backend:</strong> Flask REST API, TensorFlow/Keras, AWS EC2</li>
+            <li><strong>Backend:</strong> Flask REST API, ONNX Runtime, Google Cloud Run (originally AWS EC2)</li>
             <li><strong>ML:</strong> DenseNet121 (transfer learning), ImageNet pre-trained weights</li>
             <li><strong>Data:</strong> 7,946 training images, 70 dog breeds (Kaggle dataset)</li>
             <li><strong>Tools:</strong> Python, scikit-learn, Jupyter Notebooks (Kaggle)</li>
@@ -126,10 +128,8 @@ function About() {
             </li>
             <li>
               <strong>Kaggle Notebook:</strong>{' '}
-              {/* TODO: Add Kaggle notebook link */}
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a
-                href="#"
+                href="https://www.kaggle.com/code/jakobmp/dog-breed-classification-densenet"
                 target="_blank"
                 rel="noopener noreferrer"
               >
