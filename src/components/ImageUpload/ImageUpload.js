@@ -2,6 +2,26 @@ import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import styles from './ImageUpload.module.scss';
 
+const API_URL = process.env.REACT_APP_API_URL;
+// The API scales to zero when idle, so the first request may wait for it to start.
+const FIRST_REQUEST_TIMEOUT_MS = 60000;
+const REQUEST_TIMEOUT_MS = 20000;
+
+const healthUrl = (apiUrl) => apiUrl.replace(/\/predict\/?$/, '/health');
+
+// Returns the response, or null if the request failed or timed out.
+async function postImage(formData, timeoutMs) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(API_URL, { method: 'POST', body: formData, signal: controller.signal });
+  } catch (error) {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function ImageUpload({ updateDogSeen }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [predictionAccuracy, setPredictionAccuracy] = useState(null);
@@ -9,6 +29,16 @@ function ImageUpload({ updateDogSeen }) {
   const [top5Predictions, setTop5Predictions] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [predictionLoading, setPredictionLoading] = useState(false);
+  const [serverReady, setServerReady] = useState(false);
+  const [warmingUp, setWarmingUp] = useState(false);
+
+  // Wake the API in the background as soon as the page loads.
+  useEffect(() => {
+    if (!API_URL) return;
+    fetch(healthUrl(API_URL))
+      .then((response) => setServerReady(response.ok))
+      .catch(() => {});
+  }, []);
 
   const handleImageChange = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -29,19 +59,23 @@ function ImageUpload({ updateDogSeen }) {
       const formData = new FormData();
       formData.append('image', selectedImage);
 
-      const apiUrl = process.env.REACT_APP_API_URL;
-      if (!apiUrl) {
+      if (!API_URL) {
         throw new Error('API URL not configured');
       }
 
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        body: formData
-      });
+      setWarmingUp(!serverReady);
+      const timeoutMs = serverReady ? REQUEST_TIMEOUT_MS : FIRST_REQUEST_TIMEOUT_MS;
+      let response = await postImage(formData, timeoutMs);
+      if (!response || response.status >= 500) {
+        // Retry once: the server may still have been starting up.
+        setWarmingUp(true);
+        response = await postImage(formData, timeoutMs);
+      }
 
-      if (!response.ok) {
+      if (!response || !response.ok) {
         throw new Error('Failed to get prediction from server');
       }
+      setServerReady(true);
 
       const data = await response.json();
       setPrediction(data.breed);
@@ -54,6 +88,7 @@ function ImageUpload({ updateDogSeen }) {
       setErrorMessage('Unable to classify image. Please try again with a different photo.');
     } finally {
       setPredictionLoading(false);
+      setWarmingUp(false);
     }
   };
 
@@ -110,6 +145,11 @@ function ImageUpload({ updateDogSeen }) {
                   color: 'var(--color-primary)'
                 }}
               />
+              {warmingUp && (
+                <p className={styles.warmingMessage}>
+                  Warming up the model, this can take a few seconds the first time
+                </p>
+              )}
             </div>
           )}
 
