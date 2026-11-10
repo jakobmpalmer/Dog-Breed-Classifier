@@ -97,8 +97,8 @@
 
 // Badge color variants
 .badgeGreen {
-  background-color: #DEF7EC;
-  color: #03543F;
+  background-color: var(--color-badge-green-bg);
+  color: var(--color-badge-green-text);
 }
 
 .badgeBlue {
@@ -107,13 +107,13 @@
 }
 
 .badgeOrange {
-  background-color: #FEF3C7;
-  color: #92400E;
+  background-color: var(--color-badge-orange-bg);
+  color: var(--color-badge-orange-text);
 }
 
 .badgeRed {
-  background-color: #FEE2E2;
-  color: #991B1B;
+  background-color: var(--color-badge-red-bg);
+  color: var(--color-badge-red-text);
 }
 
 .badgeDefault {

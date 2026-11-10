@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home/Home'
 import About from './pages/About/About'
 import Compendium from './pages/Compendium/Compendium'
+import Links from './pages/Links/Links'
 import Navbar from './components/Navbar/Navbar';
 import BreedPage from './pages/BreedInfoPage/BreedInfoPage';
 
@@ -69,6 +70,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/compendium' element={<Compendium getDogData={getDogData} setDogData={setDogData} dogData={dogData} />} />
         <Route path='/compendium/:breed' element={<BreedPage />} />
+        <Route path='/links' element={<Links />} />
       </Routes>
       <Footer />
     </div>

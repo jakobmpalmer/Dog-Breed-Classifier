@@ -1,0 +1,144 @@
+.pageContainer {
+  background-color: var(--color-background);
+  min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
+  padding: var(--spacing-3xl) var(--spacing-lg);
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+
+  h1 {
+    margin: 0 0 var(--spacing-2xl) 0;
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    text-align: center;
+  }
+}
+
+.group {
+  margin-bottom: var(--spacing-2xl);
+
+  h2 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-main);
+    margin: 0 0 var(--spacing-md) 0;
+  }
+}
+
+.linkGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+// The photo fills the card; the text panel covers all but a strip on the left
+// and slides off to the right on hover to reveal the whole photo.
+.linkCard {
+  position: relative;
+  display: flex;
+  min-height: 140px;
+  overflow: hidden;
+  background-color: var(--color-background-secondary);
+  background-size: cover;
+  background-position: center 30%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:hover .linkPanel,
+  &:focus-visible .linkPanel {
+    transform: translateX(100%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// Logos sit in the left strip and glide to the center as the panel slides away.
+.logoCard {
+  background-size: auto var(--logo-size, 45%);
+  background-repeat: no-repeat;
+  background-position: var(--logo-x, 10%) center;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base),
+    background-position 400ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    background-position: 50% center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.linkPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin-left: 30%;
+  width: 70%;
+  padding: var(--spacing-lg);
+  background-color: var(--color-background);
+  transition: transform 400ms ease-in-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.linkSite {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.linkName {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+}
+
+.linkDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: var(--spacing-2xl) var(--spacing-md);
+  }
+
+  .content h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  .linkGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContainer {
+    padding: var(--spacing-xl) var(--spacing-sm);
+  }
+
+  .content h1 {
+    font-size: var(--font-size-2xl);
+  }
+}

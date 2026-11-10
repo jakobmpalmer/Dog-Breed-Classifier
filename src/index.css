@@ -18,7 +18,17 @@
 
   --color-success: #10B981;
   --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
   --color-warning: #F59E0B;
+  --color-on-primary: #FFFFFF;
+
+  /* Badges */
+  --color-badge-green-bg: #DEF7EC;
+  --color-badge-green-text: #03543F;
+  --color-badge-orange-bg: #FEF3C7;
+  --color-badge-orange-text: #92400E;
+  --color-badge-red-bg: #FEE2E2;
+  --color-badge-red-text: #991B1B;
 
   /* Spacing */
   --spacing-xs: 4px;
@@ -72,6 +82,43 @@
   --max-width-container: 1280px;
   --navbar-height: 64px;
   --footer-height: 60px;
+
+  color-scheme: light;
+}
+
+/* Dark mode: set by the toggle in the navbar (see public/index.html for the initial theme) */
+:root[data-theme="dark"] {
+  --color-background: #111827;
+  --color-background-secondary: #1F2937;
+  --color-background-hover: #374151;
+
+  --color-text-main: #F9FAFB;
+  --color-text-secondary: #D1D5DB;
+  --color-text-muted: #9CA3AF;
+
+  --color-primary: #3B82F6;
+  --color-primary-hover: #60A5FA;
+  --color-primary-light: rgba(59, 130, 246, 0.18);
+
+  --color-border: #374151;
+  --color-border-dark: #4B5563;
+
+  --color-error: #F87171;
+  --color-error-light: rgba(239, 68, 68, 0.15);
+
+  --color-badge-green-bg: rgba(16, 185, 129, 0.15);
+  --color-badge-green-text: #6EE7B7;
+  --color-badge-orange-bg: rgba(245, 158, 11, 0.15);
+  --color-badge-orange-text: #FCD34D;
+  --color-badge-red-bg: rgba(239, 68, 68, 0.15);
+  --color-badge-red-text: #FCA5A5;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+
+  color-scheme: dark;
 }
 
 /* Reset and base styles */

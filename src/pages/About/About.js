@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './About.module.scss';
 
 function About() {
@@ -107,48 +108,10 @@ function About() {
 
         <section className={styles.section}>
           <h2>Links</h2>
-          <ul className={styles.linksList}>
-            <li>
-              <strong>Portfolio:</strong>{' '}
-              <a
-                href="https://jakobmpalmer.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                jakobmpalmer.com
-              </a>
-            </li>
-            <li>
-              <strong>LinkedIn:</strong>{' '}
-              <a
-                href="https://www.linkedin.com/in/jakob-m-palmer/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                jakob-m-palmer
-              </a>
-            </li>
-            <li>
-              <strong>Kaggle Notebook:</strong>{' '}
-              <a
-                href="https://www.kaggle.com/code/jakobmp/dog-breed-classification-densenet"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Training Process
-              </a>
-            </li>
-            <li>
-              <strong>GitHub:</strong>{' '}
-              <a
-                href="https://github.com/jakobmpalmer/Dog-Breed-Classifier"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View Source Code
-              </a>
-            </li>
-          </ul>
+          <p>
+            The source code, training notebook, model and dataset are all on the{' '}
+            <Link to="/links">Project Links</Link> page.
+          </p>
         </section>
       </div>
     </div>
