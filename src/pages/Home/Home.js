@@ -9,7 +9,7 @@ function Home({ updateDogSeen, setDogData, getDogData }) {
       <div className={styles.contentWrapper}>
         <div className={styles.header}>
           <h1 className={styles.title}>Dog Breed Classifier</h1>
-          <p className={styles.subtitle}>Upload an image to identify the dog breed using AI</p>
+          <p className={styles.subtitle}>Identify a dog's breed from a photo, using a model I trained.</p>
         </div>
         <ImageUpload updateDogSeen={updateDogSeen}/>
       </div>

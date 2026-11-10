@@ -4,6 +4,7 @@ import html from 'remark-html';
 import { useParams, Link } from 'react-router-dom';
 import styles from './BreedInfoPage.module.scss';
 import BreedStatsBox from '../../components/BreedStatsBox/BreedStatsBox';
+import { displayNameForSlug } from '../../values/breedNames';
 
 const BreedInfoPage = () => {
   const [content, setContent] = useState('');
@@ -17,6 +18,7 @@ const BreedInfoPage = () => {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
   const breedFileName = breed;
+  const title = displayNameForSlug(breed);
 
   useEffect(() => {
     const parseFrontmatter = (markdown) => {
@@ -170,7 +172,7 @@ const BreedInfoPage = () => {
         </Link>
 
         <div className={styles.header}>
-          <h1 className={styles.title}>{breedName}s</h1>
+          <h1 className={styles.title}>{title}</h1>
         </div>
 
         <div className={styles.mediaContainer}>
@@ -178,13 +180,13 @@ const BreedInfoPage = () => {
             <div className={styles.imageContainer}>
               <img
                 src={imageUrl}
-                alt={`${breedName} dog`}
+                alt={`${title} dog`}
                 className={styles.breedImage}
               />
             </div>
           )}
 
-          {stats && <BreedStatsBox stats={stats} breedName={breedName} />}
+          {stats && <BreedStatsBox stats={stats} breedName={title} />}
         </div>
 
         {loading ? (

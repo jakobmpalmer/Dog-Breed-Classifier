@@ -2,6 +2,7 @@ import styles from './DogBreedTile.module.scss'
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
 import { breedSlug } from '../../utils/breedSlug';
+import { displayName } from '../../values/breedNames';
 
 const DogBreedTile = ({title, seen, thumbnailPath}) => {
     const [imageError, setImageError] = useState(false);
@@ -23,7 +24,7 @@ const DogBreedTile = ({title, seen, thumbnailPath}) => {
             {!imageError ? (
               <img
                 src={imageSrc}
-                alt={`${title} dog`}
+                alt={`${displayName(title)} dog`}
                 className={styles.tileImage}
                 onError={() => setImageError(true)}
               />
@@ -46,7 +47,7 @@ const DogBreedTile = ({title, seen, thumbnailPath}) => {
             )}
           </div>
           <div className={styles.tileContent}>
-            <h3 className={styles.tileTitle}>{title}</h3>
+            <h3 className={styles.tileTitle}>{displayName(title)}</h3>
           </div>
         </div>
       </Link>
