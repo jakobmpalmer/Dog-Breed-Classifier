@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# Dog Breed Classifier
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Upload a photo of a dog and get its breed, from 70 breeds, with a confidence score and the
+top 5 predictions.
 
-## Available Scripts
+**Live site:** https://dogclassifier.jakobmpalmer.com
 
-In the project directory, you can run:
+<!-- Screenshots: add one of the upload/prediction view and one of the compendium here. -->
 
-### `npm start`
+## The model
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+I trained a DenseNet121 image classifier on Kaggle, starting from ImageNet weights. I replaced
+its output layer with my own classification head (global average pooling, a 1,024-unit dense
+layer with L1 regularization, and a 70-way softmax) and fine-tuned the whole network on about
+7,900 images of 70 breeds, including wild canids like the dhole, coyote and African wild dog.
+To keep it from overfitting, I used data augmentation (shear, zoom and horizontal flips), L1
+regularization and a low learning rate.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Test accuracy:** 96.4% on 700 held-out images (100% top-5)
+- **Training notebook:** [Kaggle](https://www.kaggle.com/code/jakobmp/dog-breed-classification-densenet)
+- **Model and model card:** [Hugging Face](https://huggingface.co/jakobmp/dog-breed-densenet121)
+  (exported to ONNX)
+- **Dataset:** [70 Dog Breeds Image Data Set](https://www.kaggle.com/datasets/gpiosenka/70-dog-breedsimage-data-set)
 
-### `npm test`
+## The app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Classifier** (`/`): upload a photo and see the predicted breed, its confidence and the
+  next four most likely breeds.
+- **Compendium** (`/compendium`): a guide to all 70 breeds that tracks which ones you've
+  identified. Each breed has its own page at `/compendium/:breed`.
+- **About** (`/about`): how the project works.
 
-### `npm run build`
+The backend is a Flask API that runs the model with ONNX Runtime on Google Cloud Run. It
+scales to zero when idle, so the app pings it when the page loads to wake it up before the
+first prediction.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Model:** TensorFlow/Keras, DenseNet121 transfer learning, trained on Kaggle
+- **Frontend:** React 18, Material UI 5, React Router 6, SCSS modules, remark for the breed
+  guides; hosted on Vercel
+- **Backend:** Flask, ONNX Runtime, Docker, Google Cloud Run (originally AWS EC2)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Running locally
 
-### `npm run eject`
+Requires Node.js.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+cp .env.example .env.local   # sets REACT_APP_API_URL to the API's /predict endpoint
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The app opens at http://localhost:3000, which the deployed API accepts requests from.
+`REACT_APP_API_URL` is read when the dev server starts or the app is built, so restart
+`npm start` after changing it. `npm run build` makes a production build in `build/`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## How it was built
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I trained the model and built the original app and its AWS backend. I later used AI coding
+tools to clean up and build out the frontend, and to migrate the backend from AWS EC2 to
+ONNX Runtime on Google Cloud Run.
