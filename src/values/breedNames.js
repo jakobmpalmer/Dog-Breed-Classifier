@@ -12,6 +12,7 @@ const DISPLAY_NAMES = {
   'Mex Hairless': 'Mexican Hairless',
   'Pekinese': 'Pekingese',
   'Shar_Pei': 'Shar Pei',
+  'Shih-Tzu': 'Shih Tzu',
 };
 
 export const displayName = (label) => DISPLAY_NAMES[label] || label;

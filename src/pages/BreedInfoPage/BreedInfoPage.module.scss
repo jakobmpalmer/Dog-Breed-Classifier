@@ -49,26 +49,38 @@
     color: var(--color-text-main);
 }
 
+// Photo and statistics side by side at equal widths, stretched to the same height.
 .mediaContainer {
     display: grid;
-    grid-template-columns: 60% 38%;
+    grid-template-columns: 1fr 1fr;
     gap: var(--spacing-xl);
     margin-bottom: var(--spacing-2xl);
-    align-items: start;
+    align-items: stretch;
 }
 
+// A 4:3 frame that grows with the stats card; the photo is cropped to fill it.
 .imageContainer {
+    position: relative;
     width: 100%;
+    aspect-ratio: 4 / 3;
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     background-color: var(--color-background-secondary);
+
+    // Breeds without a guide have no stats card: center the photo on its own.
+    &:only-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 600px;
+    }
 }
 
 .breedImage {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
-    max-height: 500px;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
@@ -228,10 +240,6 @@
         gap: var(--spacing-lg);
     }
 
-    .breedImage {
-        max-height: 400px;
-    }
-
     .markdownContent {
         padding: var(--spacing-xl);
 
@@ -253,10 +261,6 @@
 
     .title {
         font-size: var(--font-size-2xl);
-    }
-
-    .breedImage {
-        max-height: 300px;
     }
 
     .markdownContent {

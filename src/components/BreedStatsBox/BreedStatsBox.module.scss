@@ -2,11 +2,9 @@
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-lg);
   box-shadow: var(--shadow-md);
-  height: fit-content;
-  position: sticky;
-  top: calc(var(--navbar-height) + var(--spacing-lg));
+  height: 100%;
 }
 
 .cardTitle {
@@ -27,7 +25,7 @@
 .statRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-lg);
 }
 
 .statRowThree {
@@ -138,6 +136,7 @@
 
   .statRow {
     grid-template-columns: 1fr;
+    gap: var(--spacing-md);
   }
 
   .statRowThree {
