@@ -27,8 +27,9 @@ function About() {
             custom classification layers. Transfer learning
             leverages ImageNet pre-trained weights, fine-tuned on 7,946 dog images across 70 breeds.
             Data augmentation (shear, zoom, horizontal flip) and L1 regularization combat overfitting.
-            The API accepts image uploads, preprocesses them using ImageNet normalization, and
-            returns breed predictions with confidence scores.
+            The API accepts image uploads, preprocesses them exactly as in training (resizing to
+            224×224 and scaling pixel values to the 0–1 range), and returns breed predictions with
+            confidence scores.
           </p>
         </section>
 
