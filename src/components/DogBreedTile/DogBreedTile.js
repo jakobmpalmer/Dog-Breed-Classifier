@@ -10,7 +10,13 @@ const DogBreedTile = ({title, seen, thumbnailPath}) => {
     .map(x => x.toLowerCase())
     .join('-');
 
-    const imageSrc = thumbnailPath || `/compendium/${title}/image.jpg`;
+    // The same folder the breed page reads from, e.g. "shih-tzu" -> "Shih Tzu".
+    const folder = tilePath
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+    const imageSrc = thumbnailPath || `/compendium/${folder}/image.jpg`;
 
     return (
       <Link to={tilePath} className={styles.tileLink}>
