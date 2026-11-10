@@ -64,9 +64,7 @@ const LINK_GROUPS = [
       {
         name: 'GitHub',
         image: '/links/github-profile.jpg',
-        logoBackground: '#0D1117',
-        logoSize: '100%',
-        logoX: '0%',
+        imagePosition: 'left center',
         site: 'jakobmpalmer',
         url: 'https://github.com/jakobmpalmer',
         description: 'All of my public code.',
@@ -95,6 +93,7 @@ function Links() {
                   style={{
                     backgroundImage: `url("${link.image}")`,
                     backgroundColor: link.logoBackground,
+                    backgroundPosition: link.imagePosition,
                     '--logo-size': link.logoSize,
                     '--logo-x': link.logoX,
                   }}
