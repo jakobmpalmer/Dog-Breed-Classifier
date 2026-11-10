@@ -36,8 +36,9 @@ function About() {
           <h2>The ML Model</h2>
           <p>
             The classifier uses <strong>DenseNet121</strong> architecture with transfer learning
-            from ImageNet weights. I trained a custom classification head on a curated dataset of
-            70 dog breeds from Kaggle, including both common domestic breeds and wild canids
+            from ImageNet weights. I added a custom classification head (global average pooling,
+            a 1,024-unit dense layer and a 70-way softmax) and fine-tuned the whole network on a
+            curated dataset of 70 dog breeds from Kaggle, including both common domestic breeds and wild canids
             (Coyote, Dhole, Dingo, African Wild Dog). The model was trained using TensorFlow/Keras
             with the Adam optimizer and categorical crossentropy loss.
           </p>
