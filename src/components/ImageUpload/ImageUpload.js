@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
+import { breedSlug } from '../../utils/breedSlug';
 import styles from './ImageUpload.module.scss';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -257,12 +259,17 @@ function ImageUpload({ updateDogSeen }) {
                     <h4 className={styles.otherPredictionsTitle}>Other Possibilities:</h4>
                     <div className={styles.otherPredictionsList}>
                       {top5Predictions.slice(1).map((pred, index) => (
-                        <div key={index} className={styles.otherPredictionItem}>
+                        <Link
+                          key={index}
+                          to={`/compendium/${breedSlug(pred.breed)}`}
+                          className={styles.otherPredictionItem}
+                          title={`Read about the ${pred.breed} in the compendium`}
+                        >
                           <span className={styles.otherBreedName}>{pred.breed}</span>
                           <span className={styles.otherConfidence}>
                             {Math.round(pred.confidence * 10000) / 100}%
                           </span>
-                        </div>
+                        </Link>
                       ))}
                     </div>
                   </div>

@@ -23,6 +23,11 @@ function App() {
   let location = useLocation();
   const [dogData, setDogData] = useState(null);
 
+  // Start each page at the top, e.g. when following a prediction to its breed page.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   useEffect(() => {
     const updateFromLocalStorage = async () => {
         let storedData = await getDogData();

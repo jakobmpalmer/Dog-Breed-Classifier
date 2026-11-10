@@ -209,8 +209,18 @@
     border-radius: var(--radius-sm);
     transition: background-color var(--transition-base);
 
-    &:hover {
+    &:hover,
+    &:focus-visible {
         background-color: var(--color-primary-light);
+
+        .otherBreedName {
+            color: var(--color-primary);
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
     }
 }
 

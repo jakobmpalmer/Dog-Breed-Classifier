@@ -1,14 +1,12 @@
 import styles from './DogBreedTile.module.scss'
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
+import { breedSlug } from '../../utils/breedSlug';
 
 const DogBreedTile = ({title, seen, thumbnailPath}) => {
     const [imageError, setImageError] = useState(false);
 
-    let tilePath = title.toLowerCase()
-    tilePath = tilePath.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-    .map(x => x.toLowerCase())
-    .join('-');
+    const tilePath = breedSlug(title);
 
     // The same folder the breed page reads from, e.g. "shih-tzu" -> "Shih Tzu".
     const folder = tilePath
