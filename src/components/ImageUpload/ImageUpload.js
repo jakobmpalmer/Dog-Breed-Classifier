@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import { breedSlug } from '../../utils/breedSlug';
+import { displayName } from '../../values/breedNames';
 import styles from './ImageUpload.module.scss';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -19,6 +20,24 @@ const SAMPLES = [
   { breed: 'Dhole', src: '/samples/dhole.jpg' },
   { breed: 'French Bulldog', src: '/samples/french-bulldog.jpg' },
 ];
+
+// Phone camera photos can be larger than the API's 10 MB limit and slow to upload on
+// mobile data. The model only sees 224x224 pixels, so send a 1024px copy of large photos.
+async function shrinkImage(file, maxSide = 1024) {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = maxSide / Math.max(bitmap.width, bitmap.height);
+    if (scale >= 1) return file;
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+    canvas.getContext('2d').drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+    return blob ? new File([blob], 'photo.jpg', { type: 'image/jpeg' }) : file;
+  } catch (error) {
+    return file;
+  }
+}
 
 // Returns the response, or null if the request failed or timed out.
 async function postImage(formData, timeoutMs) {
@@ -55,6 +74,8 @@ function ImageUpload({ updateDogSeen }) {
   }, []);
 
   const handleImageChange = (event) => {
+    // Nothing is chosen when the picker or camera is cancelled; keep the current photo.
+    if (!event.target.files[0]) return;
     setSelectedImage(event.target.files[0]);
     setSampleBreed(null);
   };
@@ -123,7 +144,7 @@ function ImageUpload({ updateDogSeen }) {
 
     try {
       const formData = new FormData();
-      formData.append('image', image);
+      formData.append('image', await shrinkImage(image));
 
       if (!API_URL) {
         throw new Error('API URL not configured');
@@ -200,6 +221,23 @@ function ImageUpload({ updateDogSeen }) {
         />
       </div>
 
+      {/* Shown only on touch devices: opens the rear camera directly. */}
+      <label htmlFor="camera-input" className={styles.cameraButton}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+          <circle cx="12" cy="13" r="4" />
+        </svg>
+        Take a photo
+      </label>
+      <input
+        id="camera-input"
+        type="file"
+        accept="image/*"
+        capture="environment"
+        onChange={handleImageChange}
+        className={styles.fileInput}
+      />
+
       {!selectedImage && errorMessage && (
         <div className={styles.errorContainer}>
           <p className={styles.errorMessage}>{errorMessage}</p>
@@ -236,10 +274,10 @@ function ImageUpload({ updateDogSeen }) {
             <div className={styles.resultContainer}>
               <div className={styles.resultCard}>
                 <h3 className={styles.resultTitle}>Classification Result</h3>
-                <p className={styles.breedName}>{prediction}</p>
+                <p className={styles.breedName}>{displayName(prediction)}</p>
                 {sampleBreed && (
                   <p className={styles.sampleCheck}>
-                    Sample photo: {sampleBreed}{' '}
+                    Sample photo: {displayName(sampleBreed)}{' '}
                     {prediction === sampleBreed ? (
                       <span className={styles.sampleCorrect}>✓ correct</span>
                     ) : (
@@ -263,9 +301,9 @@ function ImageUpload({ updateDogSeen }) {
                           key={index}
                           to={`/compendium/${breedSlug(pred.breed)}`}
                           className={styles.otherPredictionItem}
-                          title={`Read about the ${pred.breed} in the compendium`}
+                          title={`Read about the ${displayName(pred.breed)} in the compendium`}
                         >
-                          <span className={styles.otherBreedName}>{pred.breed}</span>
+                          <span className={styles.otherBreedName}>{displayName(pred.breed)}</span>
                           <span className={styles.otherConfidence}>
                             {Math.round(pred.confidence * 10000) / 100}%
                           </span>

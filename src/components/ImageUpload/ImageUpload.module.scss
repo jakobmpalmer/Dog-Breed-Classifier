@@ -252,6 +252,31 @@
     font-weight: var(--font-weight-medium);
 }
 
+// Only on touch devices, where a camera is likely; desktops keep the upload area alone.
+.cameraButton {
+    display: none;
+    align-self: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-2xl);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    background-color: var(--color-background);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+
+    &:active {
+        background-color: var(--color-primary-light);
+    }
+
+    @media (pointer: coarse) {
+        display: inline-flex;
+    }
+}
+
 .samples {
     display: flex;
     flex-direction: column;
