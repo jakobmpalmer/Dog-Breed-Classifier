@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home/Home'
 import About from './pages/About/About'
 import Compendium from './pages/Compendium/Compendium'
+import Links from './pages/Links/Links'
 import Navbar from './components/Navbar/Navbar';
 import BreedPage from './pages/BreedInfoPage/BreedInfoPage';
 
@@ -21,6 +22,11 @@ function App() {
 
   let location = useLocation();
   const [dogData, setDogData] = useState(null);
+
+  // Start each page at the top, e.g. when following a prediction to its breed page.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     const updateFromLocalStorage = async () => {
@@ -69,6 +75,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/compendium' element={<Compendium getDogData={getDogData} setDogData={setDogData} dogData={dogData} />} />
         <Route path='/compendium/:breed' element={<BreedPage />} />
+        <Route path='/links' element={<Links />} />
       </Routes>
       <Footer />
     </div>

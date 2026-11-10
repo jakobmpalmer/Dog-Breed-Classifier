@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Compendium.module.scss';
 import DogBreedTile from '../../components/DogBreedTile/DogBreedTile';
 import { dogBreeds } from '../../values/dogs';
@@ -23,6 +24,9 @@ function Compendium({ dogData }) {
           <h1 className={styles.title}>Dog Breed Compendium</h1>
           <p className={styles.progress}>
             <span className={styles.progressCount}>{numSeen}</span> of <span className={styles.progressTotal}>70</span> breeds discovered
+          </p>
+          <p className={styles.hint}>
+            Classify a photo on the <Link to="/">home page</Link> to discover its breed.
           </p>
         </div>
 

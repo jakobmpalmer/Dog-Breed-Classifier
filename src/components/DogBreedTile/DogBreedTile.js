@@ -1,16 +1,21 @@
 import styles from './DogBreedTile.module.scss'
 import React, { useState } from 'react'
 import { Link } from "react-router-dom";
+import { breedSlug } from '../../utils/breedSlug';
+import { displayName } from '../../values/breedNames';
 
 const DogBreedTile = ({title, seen, thumbnailPath}) => {
     const [imageError, setImageError] = useState(false);
 
-    let tilePath = title.toLowerCase()
-    tilePath = tilePath.match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-    .map(x => x.toLowerCase())
-    .join('-');
+    const tilePath = breedSlug(title);
 
-    const imageSrc = thumbnailPath || `/compendium/${title}/image.jpg`;
+    // The same folder the breed page reads from, e.g. "shih-tzu" -> "Shih Tzu".
+    const folder = tilePath
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+    const imageSrc = thumbnailPath || `/compendium/${folder}/image.jpg`;
 
     return (
       <Link to={tilePath} className={styles.tileLink}>
@@ -19,7 +24,7 @@ const DogBreedTile = ({title, seen, thumbnailPath}) => {
             {!imageError ? (
               <img
                 src={imageSrc}
-                alt={`${title} dog`}
+                alt={`${displayName(title)} dog`}
                 className={styles.tileImage}
                 onError={() => setImageError(true)}
               />
@@ -42,7 +47,7 @@ const DogBreedTile = ({title, seen, thumbnailPath}) => {
             )}
           </div>
           <div className={styles.tileContent}>
-            <h3 className={styles.tileTitle}>{title}</h3>
+            <h3 className={styles.tileTitle}>{displayName(title)}</h3>
           </div>
         </div>
       </Link>

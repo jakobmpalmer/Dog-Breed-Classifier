@@ -21,6 +21,19 @@
       Only files inside the `public` folder can be referenced from the HTML.
     -->
     <title>Dog Breed Classifier</title>
+    <script>
+      // Apply the saved theme, or the system's, before the page renders so it doesn't flash.
+      // If the system preference can't be read, default to dark.
+      (function () {
+        var theme;
+        try { theme = localStorage.getItem('theme'); } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+          theme = prefersLight ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
